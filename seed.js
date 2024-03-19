@@ -2,6 +2,7 @@ import 'dotenv/config'
 import database from './src/models/Database.js';
 
 import Order from './src/models/Order.js';
+import OrderProductEntity from './src/models/OrderProductEntity.js';
 import OrderState, { ORDER_STATE } from './src/models/OrderState.js';
 
 (async () => {
@@ -14,12 +15,16 @@ import OrderState, { ORDER_STATE } from './src/models/OrderState.js';
     await (async () => {
         const product_entity_uuid = '123e4567-e89b-12d3-a456-426614174000';
         const orderStateName = ORDER_STATE.WAITING_FOR_PAYMENT_APPROVAL;
-        await Order.findOrCreate({ where: { product_entity_uuid, order_state_name: orderStateName } });
+        const order = await Order.findOrCreate({ where: { order_state_name: orderStateName } });
+        const order_uuid = order[0].dataValues.uuid;
+        await OrderProductEntity.findOrCreate({ where: { product_entity_uuid, order_uuid } });
     })();
 
     await (async () => {
         const product_entity_uuid = '123e4567-e89b-12d3-a456-426614174001';
         const orderStateName = ORDER_STATE.PAYMENT_APPROVED;
-        await Order.findOrCreate({ where: { product_entity_uuid, order_state_name: orderStateName } });
+        const order = await Order.findOrCreate({ where: { order_state_name: orderStateName } });
+        const order_uuid = order[0].dataValues.uuid;
+        await OrderProductEntity.findOrCreate({ where: { product_entity_uuid, order_uuid } });
     })();
 })();
