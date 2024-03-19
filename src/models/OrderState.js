@@ -2,7 +2,7 @@
 import { DataTypes } from 'sequelize';
 import Database from './Database.js';
 
-export const ORDER_STATE = {
+export const ORDER_STATES = {
     WAITING_FOR_PAYMENT_APPROVAL: 'Waiting for Payment Approval',
     PAYMENT_APPROVED: 'Payment Approved',
 };
