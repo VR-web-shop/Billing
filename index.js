@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import './src/config/BrokerConfig.js'
 import express from 'express';
 
 import SwaggerController from './src/controllers/SwaggerController.js';

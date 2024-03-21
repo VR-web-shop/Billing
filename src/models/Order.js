@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import Database from './Database.js';
 import OrderState from './OrderState.js';
-import OrderProductEntity from './OrderProductEntity.js';
+import ProductEntity from './ProductEntity.js';
 
 const Order = Database.define("Order", {
     uuid: {
@@ -16,9 +16,9 @@ const Order = Database.define("Order", {
 });
 
 
-OrderProductEntity.belongsTo(Order, { foreignKey: 'order_uuid', targetKey: 'uuid' });
+ProductEntity.belongsTo(Order, { foreignKey: 'order_uuid', targetKey: 'uuid' });
 Order.belongsTo(OrderState, { foreignKey: 'order_state_name', targetKey: 'name' });
-Order.hasMany(OrderProductEntity);
+Order.hasMany(ProductEntity);
 OrderState.hasMany(Order);
 
 export default Order;
